@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import axios from "axios"
+import { useParams } from "react-router-dom";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
+  const {topic} = useParams()
   useEffect(() => {
     axios
-      .get("https://ncnewsyk.herokuapp.com/api/articles")
+      .get("https://ncnewsyk.herokuapp.com/api/articles", {
+        params: { topic:topic}
+      })
       .then(({ data }) => {
         setArticles(data.articles);
       });
-  }, []);
+  }, [topic]);
 
   return (
     <main>
