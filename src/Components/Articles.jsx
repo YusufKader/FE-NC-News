@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios"
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
@@ -12,7 +12,10 @@ const Articles = () => {
       })
       .then(({ data }) => {
         setArticles(data.articles);
-      });
+      })
+      .catch((err) => {
+        
+      })
   }, [topic]);
 
   return (
@@ -22,7 +25,9 @@ const Articles = () => {
         {articles.map((article) => {
           return (
             <li key={article.article_id}>
+              <Link to={`/articles/${article.article_id}`}>
               <h3>{article.title}</h3>
+              </Link>
               <p> Date published: {article.created_at}</p>
               <p>By {article.author}</p>
             </li>
